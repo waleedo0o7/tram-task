@@ -1,0 +1,38 @@
+<!-- if response success and there are trams available -->
+<div *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length > 0">
+    <h1 class="headline text-center text-capitalize "> Trams heading towards <br /> Gullmarsplan station </h1>
+    <div class="page-content">
+        <div class="all-items" [@showItems]="result.ResponseData.Trams.length">
+            <div class="one-item" *ngFor="let item of result.ResponseData.Trams">
+                <div class="item-content">
+                    <p> tram Destination : {{item.Destination}} </p>
+                    <p> tram Stop Area : {{item.StopAreaName}} </p>
+                    <p> tram Display : {{item.DisplayTime}} </p>
+                </div>
+            </div><!-- one-item -->
+        </div> <!-- all-items -->
+        <div class="image">
+            <img class="img-fluid" src="../../../assets/img/map.jpg" />
+        </div><!-- image -->
+    </div><!-- page-content -->
+</div>
+
+
+<!-- if response success and there are NO trams available now -->
+<div *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length == 0" class="empty">
+    <h1 class="headline text-center text-capitalize "> Trams heading towards <br /> Gullmarsplan station </h1>
+    <p> sorry no trams are available now </p>
+    <img class="img-fluid" src="../../../assets/img/tram.png" />
+</div>
+
+<!-- If Error -->
+<div class="error" *ngIf="result.StatusCode != 0">
+    <div class="noise"></div>
+    <div class="overlay"></div>
+    <div class="terminal">
+        <h1>Error </h1>
+        <p class="output"> sorry, We are down for maintenance </p>
+        <p class="output"> Come Back Soon.</p>
+        <p class="output"> {{errorMsg}}</p>
+    </div>
+</div>

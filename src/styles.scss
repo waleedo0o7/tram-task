@@ -1,1 +1,211 @@
 /* You can add global styles to this file, and also import other style files */
+
+// main style
+* {
+    box-sizing: border-box;
+}
+html {
+    min-height: 100%;
+    background: #36373b;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Cairo", sans-serif;
+    color: #fff;
+}
+
+pre {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.img-fluid {
+    max-width: 100%;
+}
+
+// main app screen
+
+.headline {
+    line-height: 1.4;
+    font-size: 45px;
+    margin: 0 0 30px 0;
+    padding-top: 20px;
+}
+
+// empty data
+
+.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p {
+        font-size: 28px;
+        text-transform: capitalize;
+        margin-bottom: 0;
+    }
+    img {
+        width: 600px;
+    }
+}
+.page-content {
+    display: flex;
+    .all-items {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 70%;
+        padding: 0 10px;
+
+        .one-item {
+            width: 50%;
+            margin-bottom: 10px;
+
+            .item-content {
+                background: #171717;
+                color: #fff;
+                text-transform: capitalize;
+                border-radius: 8px;
+                padding: 10px;
+                margin: 5px;
+                font-size: 24px;
+                p {
+                    margin: 10px;
+                }
+            }
+        }
+    }
+    .image {
+        padding: 0 10px;
+        img{
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 6px #252525;
+        }
+    }
+}
+
+// Error page
+.error {
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #000000;
+    background-image: radial-gradient(#11581e, #041607), url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Inconsolata", Helvetica, sans-serif;
+    font-size: 1.5rem;
+    color: rgba(128, 255, 128, 0.8);
+    text-shadow: 0 0 1ex rgba(51, 255, 51, 1), 0 0 2px rgba(255, 255, 255, 0.8);
+    height: 100vh;
+
+    .noise {
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+        opacity: 0.02;
+    }
+
+    .overlay {
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0) 0,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        background-size: auto 4px;
+        z-index: 1;
+    }
+
+    .overlay::before {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            0deg,
+            transparent 0%,
+            rgba(32, 128, 32, 0.2) 2%,
+            rgba(32, 128, 32, 0.8) 3%,
+            rgba(32, 128, 32, 0.2) 3%,
+            transparent 100%
+        );
+        background-repeat: no-repeat;
+        animation: scan 7.5s linear 0s infinite;
+    }
+
+    @keyframes scan {
+        0% {
+            background-position: 0 -100vh;
+        }
+        35%,
+        100% {
+            background-position: 0 100vh;
+        }
+    }
+
+    .terminal {
+        box-sizing: inherit;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        padding: 4rem;
+        text-transform: uppercase;
+    }
+
+    .output {
+        color: rgba(128, 255, 128, 0.8);
+        text-shadow: 0 0 1px rgba(51, 255, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+    }
+
+    .output::before {
+        content: "> ";
+    }
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    a::before {
+        content: "[";
+    }
+
+    a::after {
+        content: "]";
+    }
+
+    .errorcode {
+        color: white;
+    }
+}
