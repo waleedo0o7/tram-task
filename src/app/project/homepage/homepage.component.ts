@@ -49,6 +49,7 @@ export class HomepageComponent implements OnInit {
         Trams: []
       }
     };
+    
     this.responseIsEmpty = false;
 
     this.MainServiceService.getTramsPoints().subscribe((res: VehiclePoints) => {
