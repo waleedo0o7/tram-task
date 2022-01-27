@@ -1,32 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../../shared/main-service.service';
 import { animate, animation, query, stagger, state, style, transition, trigger } from '@angular/animations';
-
-interface Tram {
-  "TransportMode": string,
-  "LineNumber": number,
-  "Destination": string,
-  "JourneyDirection": number,
-  "GroupOfLine": string,
-  "StopAreaName": string,
-  "StopAreaNumber": number,
-  "StopPointNumber": number,
-  "StopPointDesignation": string,
-  "TimeTabledDateTime": string,
-  "ExpectedDateTime": string,
-  "DisplayTime": string,
-  "JourneyNumber": number,
-  "Deviations": string
-}
-
-interface VehiclePoints {
-  "StatusCode": number,
-  "Message": string,
-  "ExecutionTime": number,
-  "ResponseData": {
-    "Trams": Tram[]
-  }
-}
+import { Tram , VehiclePoints } from '../../shared/model';
 
 @Component({
   selector: 'app-homepage',
@@ -60,6 +35,8 @@ export class HomepageComponent implements OnInit {
     }
   };
 
+  responseIsEmpty:boolean = false;
+
   errorMsg: string;
 
   getTramsPoints() {
@@ -72,6 +49,7 @@ export class HomepageComponent implements OnInit {
         Trams: []
       }
     };
+    this.responseIsEmpty = false;
 
     this.MainServiceService.getTramsPoints().subscribe((res: VehiclePoints) => {
 
@@ -81,7 +59,9 @@ export class HomepageComponent implements OnInit {
             this.result.ResponseData.Trams.push(oneTram); // push tram data in array 
           }
         })
-      } 
+      } else {
+        this.responseIsEmpty = true;
+      }
 
     }, (error) => {
       this.errorMsg = error;
@@ -90,10 +70,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTramsPoints(); // call api to get trams first time
-    setInterval(() => { // call api evry 1m to get new data 
-      this.getTramsPoints();
-    }, 60000);
+    this.getTramsPoints(); // call api to get trams at first time
   }
 
 }

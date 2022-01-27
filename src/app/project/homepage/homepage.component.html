@@ -1,8 +1,16 @@
 <!-- if response success and there are trams available -->
-<div *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length > 0">
+<div *ngIf="result.StatusCode == 0">
     <h1 class="headline text-center text-capitalize "> Trams heading towards <br /> Gullmarsplan station </h1>
+    <div class="updatebtn">
+        <a class="update" (click)="getTramsPoints()"> Update Results </a>
+    </div>
+
     <div class="page-content">
-        <div class="all-items" [@showItems]="result.ResponseData.Trams.length">
+        <div class="loading-container" *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length == 0">
+            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            </div>
+        </div>
+        <div class="all-items" [@showItems]="result.ResponseData.Trams.length" *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length > 0">
             <div class="one-item" *ngFor="let item of result.ResponseData.Trams">
                 <div class="item-content">
                     <p> tram Destination : {{item.Destination}} </p>
@@ -11,6 +19,10 @@
                 </div>
             </div><!-- one-item -->
         </div> <!-- all-items -->
+        <div class="empty" *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length == 0 && responseIsEmpty == true">
+            <p> sorry no trams are available now </p>
+            <img class="img-fluid" src="../../../assets/img/tram.png" />
+        </div>
         <div class="image">
             <img class="img-fluid" src="../../../assets/img/map.jpg" />
         </div><!-- image -->
@@ -18,12 +30,6 @@
 </div>
 
 
-<!-- if response success and there are NO trams available now -->
-<div *ngIf="result.StatusCode == 0  && result.ResponseData.Trams.length == 0" class="empty">
-    <h1 class="headline text-center text-capitalize "> Trams heading towards <br /> Gullmarsplan station </h1>
-    <p> sorry no trams are available now </p>
-    <img class="img-fluid" src="../../../assets/img/tram.png" />
-</div>
 
 <!-- If Error -->
 <div class="error" *ngIf="result.StatusCode != 0">
